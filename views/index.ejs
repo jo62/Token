@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="css/mdb.min.css" rel="stylesheet">
+<!-- Your custom styles (optional) -->
+<link href="css/style.css" rel="stylesheet">
+	
+</head>
+
+<style type="text/css">
+    body{overflow:scroll;}
+    #exchain{width:800px; margin:0 auto; position:relative;}
+    .tit{font-size:25px; margin-top:30px; position:absolute; background-color:#fff;}
+    .tit-1{left:40px; top:-45px;}
+    .tit-2{left:50px; top:180px;}
+    
+    .box{
+        margin-top:60px;
+		padding:10px 15px 15px 15px;
+		border-radius: 5px;
+		border: 1px solid gray;
+		margin-right: 10px;
+		margin-left: 10px;
+	}
+    .box-wrap{margin-top:50px;}
+    .box-wrap:last-child{margin-top:30px;}
+    button{background-color:#3e7fd8; color:#fff; border:0;}
+    .btn{border-radius:5px; font-size:14px; padding:0 15px;}
+    
+    /*boot*/
+    .input-group-append{margin-top:-7px;}
+    .form-control{height:calc(2.25rem + 10px);}
+    .input-group-append{margin-left:-6px;}
+    /*.btn-outline-secondary{border-color:#4285f4 !important; color:#4285f4 !important;}*/
+    
+    
+    .w100{
+		width: 100%;
+	}
+	.mt10{
+		margin-top: 10px;
+	}
+	
+	h3{
+		margin-top: 0px;
+		margin-bottom : 3px;
+	}
+    @media only screen and (max-width:1024px){
+    @media only screen and (max-width:640px){
+        #exchain{width:100%;}
+        input[type="text"]{font-size:13px;}
+        .btn{font-size:11px; padding:0 10px;}
+        .input-group-append{margin-top:-5px;}
+        .form-control{height:calc(2.25rem + 8px);}
+        .input-group-append{margin-left:-8px;}
+        .check_wrap{width:88%;}
+        /*.check_wrap .eos{display:inline-block; margin-right:94px;}*/
+        input[type=text]{text-overflow:ellipsis;}
+    }
+    }
+</style>
+<body>
+
+<div id="exchain">
+    <h3 class="tit tit-1">잔액조회 </h3>
+    <input type="hidden"  name="excute" value="" />
+    <div class="box">
+        <div id="commonBody" class="box-wrap">            
+            <div class="input-group mb-3">
+              <input type="text" name="walletAddr" value="" id="inputLGEx" class="form-control" placeholder="지갑주소">
+              <div class="input-group-append">
+                <button id="balanceOf" class="btn btn-outline-secondary" type="button">잔액조회</button>
+              </div>
+            </div>
+            <!--<td style="width: 20%"><button type="button" id="test" style="margin-left:8px"><span>트랜젝션조회</span></button></td>-->
+            <p id="excbalanceOf"></p>
+            <div>
+               <p style="display:inline-block; border-bottom:2px solid #b8b6b9; margin-right:20px;">
+                    <span style="margin-right:20px;">이더리움</span>
+                    <span id="ethBalance" style="margin-right:10px;">ETH</span>
+                </p>
+                <p style="display:inline-block; border-bottom:2px solid #b8b6b9; margin-right:20px;">
+                    <span style="margin-right:20px;">오미세고</span>
+                    <span id="omgBalance">OMG</span>
+                </p>
+            </div>
+        </div>
+    </div><!--//box-->
+
+    <h3 class="tit tit-2">토큰전송 </h3>
+    <div class="box">
+        <div class="box-wrap">
+           <div class="check_wrap">
+                <input type="radio" name="coin" value="ETH" checked="checked" id="eth" style="margin:8px 5px 24px 8px"/>
+                <label for="eth">ETH(이더리움)</label>
+                <input type="radio" name="coin" value="OMG" id="OMG" style="margin-left:8px">
+                 <label for="OMG">OMG(오미세고)</label>
+            </div><!--check_wrap-->
+            
+            <div id="commonBody">
+                <div class="md-form form-lg">
+                    <input type="text" name="sellWalletAddr" value="" id="inputLGEx" class="form-control form-control-lg">
+                    <label for="inputLGEx">보내는사람 지갑주소</label>
+                </div>
+                <div class="md-form form-lg">
+                    <input type="text" name="buyWalletAddr" value="" id="inputLGEx" class="form-control form-control-lg">
+                    <label for="inputLGEx">받는사람 지갑주소</label>
+                </div>
+                <div class="md-form form-lg">
+                    <input type="text" name="privateKey" id="inputLGEx" value="" class="form-control form-control-lg">
+                    <label for="inputLGEx">지갑보안키</label>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="text"  name="amount" id="inputMDEx" class="form-control" placeholder="금액" aria-label="보낼금액" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button id="transfer" class="btn btn-outline-secondary" type="button">송금실행</button>
+                  </div>
+                </div>
+
+
+                <div class="md-form form-sm">
+                    <input type="text" id="inputSMEx" class="form-control form-control-sm" readonly>
+                    <label id="resultMsg" for="inputSMEx">결과</label>
+                </div>
+            </div><!--//commonBody-->
+        </div><!--//box-wrap-->
+    </div><!--//box-->
+</div><!--//exchain-->
+
+<!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.js"></script>
+  
+  <!-- socket.io -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- 잔액조회 & 토큰전송 -->
+  <script type="text/javascript" src="token.js"></script>
+  
+</body>
+</html>
